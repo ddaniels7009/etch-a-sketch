@@ -3,70 +3,76 @@
 // Create body variable to control body element
 let body = document.body;
 let rows = document.getElementsByClassName('gridRow');
-let boxes = document.getElementsByClassName('cell');
 const container = document.getElementById("container");
 
+// Create button
+const btn = document.getElementById('myBtn');
+btn.addEventListener('click', resetGrid); // Add event listener to button
 
-let userInput = window.prompt("Please enter the grid size.")
+let gridSize = 16; // Set initial gridSize
+createGrid(16); // Create initial grid
 
-
-function defaultGrid(userInput) {
-    makeRows(userInput);
-    makeColumns(userInput);
-    console.log("defaultGridFunction")
+// Function to create initial grid
+function createGrid(gridSize) {
+    makeRows(gridSize);
+    makeCells(gridSize);
+    
 }
 
-
+// Function to create the rows for the grid
 function makeRows(rowNum) {
 
     for (r = 0; r < rowNum; r++) {
+        
         let row = document.createElement("div");
-        container.appendChild(row).className = "gridRow";
-        row.classList.add('gridItem')
-        console.log("makeRowsFunction")
-        row.setAttribute('id', r);
+        container.appendChild(row);
+        
+        row.classList.add('gridRow'); // Set class for all rows
+        row.setAttribute('id', r); // Set id in order to delete grid
     }
 
 }
 
-function makeColumns(cellNum) {
+// Function to add cells to the rows
+function makeCells(cellNum) {
 
     for (c = 0; c < rows.length; c++) {
         for (j = 0; j < cellNum; j++) {
-            let column = document.createElement("div");
-            rows[j].appendChild(column).className = "boxes"
+           
+            let cells = document.createElement("div"); // create column
+            rows[j].appendChild(cells); // append column to row[j]
+    
+            cells.classList.add('cells'); // Set class for all cells
+            cells.style.width = 600 / cellNum; // Set cell width
+            cells.style.height = 600 / cellNum; // Set cell height
+            cells.addEventListener('mouseenter', hoverFunction); // Add event listener to a hover funtion
 
-            //Adjust size of squares based on how many their are
-            column.classList.add('gridItem')
-            column.style.width = 800 / cellNum;
-            column.style.height = 800 / cellNum;
-            column.addEventListener('mouseenter', hoverFunction);
-
+            // Create hover function for cells to change color
             function hoverFunction() {
-                column.style.backgroundColor = 'cadetblue';
+                cells.style.backgroundColor = 'cadetblue';
             }
         }
-
-        console.log("makeColumnsFunction")
-
     }
 
 }
 
-function createGrid() {
-    
-    console.log("createGridFunction")
-    defaultGrid(userInput)
-}
-
-document.getElementById("myBtn").addEventListener("click", resetGrid);
-
+// Function to reset/create a new grid based on user input for grid size
 function resetGrid() {
-    for (let i = 0; i <= userInput-1; i++) {
+    for (let i = 0; i <= gridSize-1; i++) {
         container.removeChild(document.getElementById(i))
         }
-        userInput = window.prompt("Please enter the grid size.")
-        defaultGrid(userInput)
+        gridSize = window.prompt("Please enter the grid size.")
+        if(gridSize >100){
+            gridSize = 100;
+            window.alert("Maximum grid size is 100.")
+        }
+        
+        else if(gridSize < 2){
+            gridSize = 2;
+            window.alert("Minimum grid size is 2.")
+        }
+
+        createGrid(gridSize)
 }
 
-createGrid()
+

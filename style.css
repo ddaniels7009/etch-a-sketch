@@ -1,7 +1,7 @@
 body {
     margin: 0;
     padding: 0;
-    height: 1060px;
+    height: 800px;
     background-color: snow;
     box-sizing: border-box;
     display: flex;
@@ -14,17 +14,21 @@ body {
   #container {
     display: flex;
     color: black;
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     border: silver;
     border-style: solid;
     border-width: 16px;
     border-radius: 18px;
   }
   
-  .gridItem {
+  .cells {
     background-color: darkslategrey;
     text-align: center;
+  }
+
+  .gridRow{
+    background-color: darkslategrey;
   }
   
   button {
@@ -51,6 +55,6 @@ body {
     color: dimgray;
     font-family: 'Montserrat', sans-serif;
     font-size: 60;
-    margin-top: 40;
+    margin-top: 20;
     margin-bottom: 0;
   }
